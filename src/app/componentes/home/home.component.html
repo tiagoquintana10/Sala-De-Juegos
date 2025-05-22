@@ -1,0 +1,26 @@
+<div *ngIf="mostrarDatos()">
+    <div class="logout-contenedor">
+        <button (click) = logout() class="log-out">Log out</button>
+    </div>
+    <h2 class="h2"> Datos del usuario</h2>
+
+    <table class="table ">
+        <thead>
+            <tr>
+                <th>Nombre</th>
+                <th>Edad</th>
+                <th>Foto</th>
+            </tr>
+        </thead>
+        <tbody *ngIf="usersdata">
+                <tr>
+                    <td>{{ usersdata.name }}</td>
+                    <td>{{ usersdata.age }}</td>
+                    <td>
+                        <img class="avatar" [src]="getAvatarUrl(usersdata.avatarUrl)" alt="Foto de usuario">
+                    </td>
+                </tr>
+        </tbody>    
+    </table>
+</div>
+<router-outlet></router-outlet>

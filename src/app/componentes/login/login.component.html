@@ -1,0 +1,24 @@
+<div class="login-container">
+    <h3>Login</h3>
+    <input type="text" placeholder="Mail" [(ngModel)]="mail" 
+            [ngClass]="{'invalid-input': submitted && mail.length == 0}"
+            class="login-input" />
+
+    <input type="password" placeholder="Password" [(ngModel)]="password"
+            [ngClass]="{'invalid-input': submitted && password.length == 0 || incorrect}"
+            class="login-input" />
+
+     <div *ngIf="errorMsg" class="error-message">
+        {{ errorMsg }}
+    </div> 
+                
+    <button (click)= "login()" class="login-button">
+        login
+    </button>
+
+    <div class="register-link-container">
+        <button routerLink = "../register" class="register-link">
+             Register
+        </button>
+    </div>
+</div>

@@ -1,0 +1,27 @@
+<div class="register-container">
+    <h3>Registro</h3>
+    <input type="text" placeholder="Mail" [(ngModel)]="mail"
+            [ngClass]="{'invalid-input': submitted && !isValidEmail(mail)}"
+            class="register-input" />
+    <input type="password" placeholder="Password (al menos 6 caracteres)" [(ngModel)]="password" 
+            [ngClass]="{'invalid-input': submitted && password.length < 6}"
+            class="register-input" />
+    <input type="text" placeholder="Nombre" [(ngModel)]="name" 
+            [ngClass]="{'invalid-input': submitted && name.trim() === ''}"
+            class="register-input" />
+    <input type= "number" placeholder="Edad" [(ngModel)]="age"
+            [ngClass]="{'invalid-input': submitted && (age <= 0 || age > 120)}"
+            class="register-input" />
+    <input type="file" (change)="onFileSelected($event)"
+            [ngClass]="{'invalid-input': submitted && !avatarFile}" 
+            class="register-input" />
+    <div *ngIf="errorMsg" class="error-message">
+        {{ errorMsg }}
+    </div>            
+    <button (click) = "register()" class="register-button">
+        Registro
+    </button>
+    <div class="login-link-container">
+        <a routerLink="../login" class="login-link">Login</a>
+    </div>        
+</div>

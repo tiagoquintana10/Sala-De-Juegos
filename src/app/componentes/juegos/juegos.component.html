@@ -1,0 +1,13 @@
+<h2 class="titulo">Elegí un juego</h2>
+
+<div class="juegos-contenedor">
+  <div
+    class="juegos"
+    *ngFor="let juego of juegos"
+    [routerLink]="juego.ruta">
+    <div class="icono-juego">{{ juego.icono }}</div>
+    <div class="nombre-juego">{{ juego.nombre }}</div>
+  </div>
+</div>
+
+<router-outlet></router-outlet>
