@@ -1,3 +1,8 @@
+:host {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
 .nav{
     border-bottom: 1px solid white;
     padding: 1rem;
@@ -7,4 +12,27 @@
 .selected{
     background-color:rgb(45, 182, 216);
     border-radius: 5px;
+}
+.pie-de-pagina {
+  width: 100%;
+  background-color: #222;
+  color: #eee;
+  text-align: center;
+  padding: 1rem;
+  margin-top: auto;
+  font-size: 0.9rem;
+  position: relative;
+  bottom: 0;
+}
+
+.pie-de-pagina a {
+  color: #00bfff;
+  text-decoration: none;
+  margin-left: 0.5rem;
+  font-weight: bold;
+  transition: color 0.3s ease;
+}
+
+.pie-de-pagina a:hover {
+  color: #ffffff;
 }
