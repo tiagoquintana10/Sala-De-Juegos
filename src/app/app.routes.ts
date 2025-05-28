@@ -30,6 +30,10 @@ export const routes: Routes = [
                 path: 'chat',
                 component: ChatComponent,
             },
+            {
+                path: 'quien-soy',
+                component: QuienSoyComponent,
+            },
     ],
     },
     {
@@ -39,10 +43,6 @@ export const routes: Routes = [
     {
         path: 'register',
         component: RegisterComponent,
-    },
-    {
-        path: 'quien-soy',
-        component: QuienSoyComponent,
     },
     {
         path: '**',
