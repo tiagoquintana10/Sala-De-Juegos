@@ -1,1 +1,29 @@
-<p>preguntados works!</p>
+<div class="ahorcado-container">
+  <h2>Ahorcado</h2>
+
+  
+  <div class="palabra">
+    <span *ngFor="let letra of letrasPalabra">
+      {{ letrasAdivinadas.includes(letra) ? letra : '_' }}
+    </span>
+  </div>
+
+  <div class="intentos">
+    Intentos restantes: {{ intentosRestantes }}
+  </div>
+
+  <div class="teclado">
+    <button
+      *ngFor="let l of abecedario"
+      [disabled]="letraUsada(l) || juegoTerminado"
+      (click)="intentar(l)">
+      {{ l }}
+    </button>
+  </div>
+
+  <div class="mensaje" *ngIf="juegoTerminado">
+    <p *ngIf="juegoGanado" class="ganado">¡Ganaste! 🎉</p>
+    <p *ngIf="!juegoGanado" class="perdido">Perdiste 😵 La palabra era: {{ palabraOculta }}</p>
+    <button class="reiniciar" (click)="reiniciarJuego()">Jugar de nuevo</button>
+  </div>
+</div>
