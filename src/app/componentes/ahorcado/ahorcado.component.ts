@@ -1,5 +1,9 @@
 import { Component } from '@angular/core';
+import { createClient } from '@supabase/supabase-js';
+import { environment } from '../../../environments/environment.prod';
+import { Router } from '@angular/router';
 
+const supabase = createClient(environment.apiUrl, environment.publicAnonKey);
 
 @Component({
   selector: 'app-ahorcado',
@@ -9,6 +13,7 @@ import { Component } from '@angular/core';
 })
 export class AhorcadoComponent {
   
+  constructor(private router: Router) {}
   
   palabraOculta: string = '';
   letrasAdivinadas: string[] = [];
@@ -20,8 +25,15 @@ export class AhorcadoComponent {
   listaPalabras: string[] = ['ANGULAR', 'PROGRAMACION', 'AHORCADO', 'DESARROLLO', 'JUEGO'];
 
   ngOnInit(): void {
-    this.reiniciarJuego();
+    supabase.auth.getUser().then(({ data: { user }, error }) => {
+      if (error || !user) {
+        this.router.navigate(['/login']);
+      }else{
+        this.reiniciarJuego();
+      }
+    });
   }
+
 
   get letrasPalabra(): string[] {
     return this.palabraOculta.split('');
