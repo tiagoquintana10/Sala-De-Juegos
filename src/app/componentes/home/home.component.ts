@@ -21,9 +21,14 @@ const supabase = createClient(environment.apiUrl,environment.publicAnonKey)
 export class HomeComponent implements OnInit {
 
 
-  constructor(private router : Router){
+  constructor(private router : Router){}
 
-  } 
+  navigateToChat() {
+    this.router.navigate(['/home/chat']);
+  }
+
+
+  
   usersdata: UserData  | null = null;
 
   ngOnInit(): void {
