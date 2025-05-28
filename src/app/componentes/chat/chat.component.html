@@ -1,0 +1,26 @@
+<div class="chat-container" *ngIf="currentUserId">
+  <div class="messages">
+    <div
+      *ngFor="let msg of messages"
+      [ngClass]="{
+        'my-message': isMyMessage(msg),
+        'other-message': !isMyMessage(msg)
+      }"
+    >
+      <div class="meta">
+        <strong>{{ isMyMessage(msg) ? 'Yo' : msg.name }}</strong>
+        {{ formatDate(msg.created_at) }}
+      </div>
+      <div class="content">{{ msg.content }}</div>
+    </div>
+  </div>
+
+  <div class="input-area">
+    <input
+      [(ngModel)]="newMessage"
+      (keyup.enter)="sendMessage()"
+      placeholder="Escribe tu mensaje..."
+    />
+    <button (click)="sendMessage()">Enviar</button>
+  </div>
+</div>
