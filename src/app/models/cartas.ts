@@ -1,9 +1,12 @@
-export interface UserData {
-    id: number;
-    name: string;
-    age: number;
-    authId: string;
-    created_at: string;
-    avatarUrl: string;
+export interface Cartas {
+  code: string;
+  image: string;
+  images: CardImage;
+  value: string;
+  suit: string;
 
+}
+export interface CardImage {
+  svg: string;
+  png: string;
 }
