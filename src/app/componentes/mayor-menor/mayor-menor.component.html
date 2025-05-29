@@ -1,1 +1,28 @@
-<p>mayor-menor works!</p>
+<div class="juego-mayor-menor">
+
+  <h2>Juego Mayor o Menor</h2>
+
+  <div *ngIf="cartaActual">
+    <img [src]="cartaActual.image" [alt]="cartaActual.code" class="carta-imagen" />
+  </div>
+
+  <div *ngIf="!cartaActual">
+    <p>Cargando carta...</p>
+  </div>
+
+  <p><strong>Puntaje:</strong> {{ puntaje }}</p>
+  <p><strong>Cartas restantes:</strong> {{ cartasRestantes }}</p>
+
+  <p class="mensaje">{{ mensaje }}</p>
+
+  <div *ngIf="!juegoTerminado">
+    <button (click)="jugar('mayor')">Mayor</button>
+    <button (click)="jugar('menor')">Menor</button>
+  </div>
+
+  <div *ngIf="juegoTerminado">
+    <button (click)="iniciarJuego()">Reiniciar Juego</button>
+  </div>
+
+</div>
+
