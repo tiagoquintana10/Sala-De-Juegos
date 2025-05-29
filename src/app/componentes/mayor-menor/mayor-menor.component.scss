@@ -1,0 +1,20 @@
+.juego-mayor-menor {
+  text-align: center;
+
+  .carta-imagen {
+    width: 150px;
+    height: auto;
+    margin-bottom: 1rem;
+  }
+
+  .botones button {
+    margin: 0 10px;
+    padding: 0.5rem 1.5rem;
+    font-size: 1.2rem;
+  }
+
+  .mensaje {
+    margin: 1rem 0;
+    font-weight: bold;
+  }
+}
