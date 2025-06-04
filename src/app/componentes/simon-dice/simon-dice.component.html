@@ -1,1 +1,16 @@
-<p>simon-dice works!</p>
+<div class="contenedor">
+  <h2>Simón Dice</h2>
+  <p>{{ mensaje }}</p>
+
+  <div class="puntuacion">
+    <p *ngIf="mensaje === '¡Perdiste!'">Puntuación final: {{ ultimoScore }}</p>
+  </div>
+
+  <div class="tablero">
+    <button id="verde" (click)="seleccionar('verde')" class="verde"></button>
+    <button id="rojo" (click)="seleccionar('rojo')" class="rojo"></button>
+    <button id="amarillo" (click)="seleccionar('amarillo')" class="amarillo"></button>
+    <button id="azul" (click)="seleccionar('azul')" class="azul"></button>
+  </div>
+  <button class="btn-volver" *ngIf="mensaje === '¡Perdiste!'" (click)="iniciarJuego()">Volver a jugar</button>
+</div>
