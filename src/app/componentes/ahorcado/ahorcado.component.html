@@ -22,8 +22,10 @@
   </div>
 
   <div class="mensaje" *ngIf="juegoTerminado">
-    <p *ngIf="juegoGanado" class="ganado">¡Ganaste! 🎉</p>
-    <p *ngIf="!juegoGanado" class="perdido">Perdiste 😵 La palabra era: {{ palabraOculta }}</p>
-    <button class="reiniciar" (click)="reiniciarJuego()">Jugar de nuevo</button>
+    <p *ngIf="juegoGanado" class="ganado">¡Ganaste! 🎉 </p>
+    <p *ngIf="juegoGanado" class="puntuacion">Puntuacion actual: {{score}}</p>
+    <p *ngIf="!juegoGanado" class="perdido">Perdiste 😵 La palabra era: {{ palabraOculta }} </p>
+    <p *ngIf="!juegoGanado" class="puntuacion">Tu puntuacion fue: {{ultimoScore}}</p>
+    <button class="btn-volver" (click)="reiniciarJuego()">Jugar de nuevo</button>
   </div>
 </div>
