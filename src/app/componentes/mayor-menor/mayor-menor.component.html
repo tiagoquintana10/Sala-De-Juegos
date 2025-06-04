@@ -10,7 +10,7 @@
     <p>Cargando carta...</p>
   </div>
 
-  <p><strong>Puntaje:</strong> {{ puntaje }}</p>
+  <p><strong>Puntaje:</strong> {{ score }}</p>
   <p><strong>Cartas restantes:</strong> {{ cartasRestantes }}</p>
 
   <p class="mensaje">{{ mensaje }}</p>
@@ -21,7 +21,7 @@
   </div>
 
   <div *ngIf="juegoTerminado">
-    <button (click)="iniciarJuego()">Reiniciar Juego</button>
+    <button class="btn-volver" (click)="iniciarJuego()">Reiniciar Juego</button>
   </div>
 
 </div>
