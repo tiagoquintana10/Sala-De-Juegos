@@ -1,0 +1,87 @@
+.contenedor {
+  text-align: center;
+  margin-top: 30px;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  padding: 20px;
+}
+
+img {
+  border-radius: 10px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  margin: 20px 0;
+  max-width: 90%;
+  height: auto;
+}
+
+.opciones {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 15px;
+  margin-top: 20px;
+
+  button {
+    padding: 12px 24px;
+    border: none;
+    border-radius: 8px;
+    font-size: 16px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    background-color: #007bff;
+    color: white;
+
+    &:hover:enabled {
+      background-color: #0056b3;
+    }
+
+    &:disabled {
+      background-color: #ccc;
+      cursor: not-allowed;
+    }
+  }
+}
+
+.correcto {
+  color: #28a745;
+  font-weight: bold;
+  font-size: 18px;
+  margin-top: 15px;
+}
+
+.incorrecto {
+  color: #dc3545;
+  font-weight: bold;
+  font-size: 18px;
+  margin-top: 15px;
+}
+.puntuacion{
+  color: black;
+  font-weight: bold;
+  font-size: 18px;
+  margin-top: 15px;
+}   
+.btn-volver {
+  margin-top: 20px;
+  padding: 12px 24px;
+  font-size: 16px;
+  font-weight: bold;
+  color: #ffffff;
+  background: linear-gradient(135deg, #00c6ff, #0072ff);
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  box-shadow: 0 4px 10px rgba(255, 75, 43, 0.4);
+  transition: all 0.3s ease;
+}
+
+.btn-volver:hover {
+  background: linear-gradient(135deg, #ff4b2b, #ff416c);
+  box-shadow: 0 6px 16px rgba(255, 75, 43, 0.5);
+  transform: scale(1.05);
+}
+
+.btn-volver:active {
+  transform: scale(0.98);
+  box-shadow: 0 2px 8px rgba(255, 75, 43, 0.3);
+}
