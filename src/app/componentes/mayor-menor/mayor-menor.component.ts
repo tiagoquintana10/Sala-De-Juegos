@@ -18,13 +18,18 @@ export class MayorMenorComponent implements OnInit, OnDestroy{
 
   constructor(private router: Router, private cartasService: CartasService) {}
 
+  usuarioId: string ='';
+  usuarioNombre: string ='';
+
+
   cartas: Cartas[] = [];
   cartaActual: Cartas | null = null;
-  puntaje: number = 0;
   cartasRestantes: number = 52;
   mensaje: string = '';
   juegoTerminado: boolean = false;
   subscripcion! : Subscription;
+  score: number = 0;
+
 
 
   ngOnInit(): void {
@@ -32,7 +37,12 @@ export class MayorMenorComponent implements OnInit, OnDestroy{
       if (error || !user) {
         this.router.navigate(['/login']);
       }else{  
-        this.iniciarJuego();          
+        this.usuarioId = user.id;
+        supabase.from('users-data').select('name').eq('authId',this.usuarioId).single()
+        .then(({data,error}) => {
+          this.usuarioNombre = data?.name || 'Desconocido';
+          this.iniciarJuego();  
+        })        
       }
     });
   }
@@ -45,7 +55,7 @@ export class MayorMenorComponent implements OnInit, OnDestroy{
     this.subscripcion = this.cartasService.crearMazo().subscribe(res => {
       this.cartasService.setDeckId(res.deck_id);
       this.cartasRestantes = res.remaining;
-      this.puntaje = 0;
+      this.score = 0;
       this.juegoTerminado = false;
       this.mensaje = '';
       this.sacarPrimeraCarta();
@@ -82,16 +92,18 @@ export class MayorMenorComponent implements OnInit, OnDestroy{
         (eleccion === 'menor' && valorSiguiente < valorActual);
 
       if (acierto) {
-        this.puntaje++;
+        this.score++;
         this.mensaje = '¡Correcto! Sigue jugando.';
         this.cartaActual = cartaSiguiente;
       } else {
-        this.mensaje = `¡Incorrecto! La carta era ${cartaSiguiente.value} de ${cartaSiguiente.suit}. Puntaje final: ${this.puntaje}`;
+        this.mensaje = `¡Incorrecto! La carta era ${cartaSiguiente.value} de ${cartaSiguiente.suit}. Puntaje final: ${this.score}`;
+        this.guardarScore('mayor-menor',this.score)
         this.juegoTerminado = true;
       }
 
       if (this.cartasRestantes === 0 && !this.juegoTerminado) {
         this.mensaje = '¡Ganaste! No quedan más cartas.';
+        this.guardarScore('mayor-menor',this.score)
         this.juegoTerminado = true;
       }
     });
@@ -99,7 +111,7 @@ export class MayorMenorComponent implements OnInit, OnDestroy{
 
   getValorNumerico(carta: Cartas): number {
     const valores: Record<string, number> = {
-      'ACE': 14,
+      'ACE': 1,
       'KING': 13,
       'QUEEN': 12,
       'JACK': 11,
@@ -114,6 +126,21 @@ export class MayorMenorComponent implements OnInit, OnDestroy{
       '2': 2
     };
     return valores[carta.value.toUpperCase()] || parseInt(carta.value);
+  }
+
+  guardarScore(juego: string, score:number): void{
+    supabase.from('score-juegos').insert([{
+    user_id: this.usuarioId,
+    nombre: this.usuarioNombre,
+    juego,
+    fecha:new Date().toISOString(),
+    score  
+    }])
+    .then(({error}) => {
+      if(error){
+        console.error('Error al guardar score: ',error.message);
+      }
+    })
   }
 
 }
