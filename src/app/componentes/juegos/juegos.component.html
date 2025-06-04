@@ -4,7 +4,7 @@
   <div
     class="juegos"
     *ngFor="let juego of juegos"
-    [routerLink]="juego.ruta">
+    (click) = "irAJuego(juego.ruta)">
     <div class="icono-juego">{{ juego.icono }}</div>
     <div class="nombre-juego">{{ juego.nombre }}</div>
   </div>
