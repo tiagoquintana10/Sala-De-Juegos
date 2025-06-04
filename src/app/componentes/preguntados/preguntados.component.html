@@ -1,1 +1,23 @@
-<p>preguntados works!</p>
+<div class="contenedor">
+  <h2>¿Quién es este personaje?</h2>
+
+  <img [src]="imagenUrl" alt="Personaje" width="200" *ngIf="imagenUrl">
+
+  <div class="opciones">
+    <button *ngFor="let opcion of opciones" (click)="seleccionarOpcion(opcion)" [disabled]="respuestaSeleccionada !== ''" >
+      {{ opcion }}
+    </button>
+  </div>
+
+  <div *ngIf="respuestaCorrecta !== null">
+    <p [ngClass]="{ correcto: respuestaCorrecta, incorrecto: !respuestaCorrecta }">
+      {{ respuestaCorrecta ? '¡Correcto!' : 'Incorrecto. Era ' + personajeCorrecto.name}}
+    </p>
+    <p class="puntuacion">
+        {{ respuestaCorrecta ? 'Tu puntuacion es: ' + score : 'Tu puntuacion final es: ' + ultimoScore}}
+    </p>
+    <button class="btn-volver" (click)="generarPregunta()">
+        {{ respuestaCorrecta ? 'Siguiente' : 'Volver a jugar'}}
+    </button>
+  </div>
+</div>
