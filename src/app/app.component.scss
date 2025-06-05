@@ -1,7 +1,11 @@
 :host {
-  display: flex;
-  flex-direction: column;
-  min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    background-image: url('/assets/fondosala.jpg'); 
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
 }
 .nav{
     border-bottom: 1px solid white;
@@ -14,25 +18,25 @@
     border-radius: 5px;
 }
 .pie-de-pagina {
-  width: 100%;
-  background-color: #222;
-  color: #eee;
-  text-align: center;
-  padding: 1rem;
-  margin-top: auto;
-  font-size: 0.9rem;
-  position: relative;
-  bottom: 0;
+    width: 100%;
+    background-color: #222;
+    color: #eee;
+    text-align: center;
+    padding: 1rem;
+    margin-top: auto;
+    font-size: 0.9rem;
+    position: relative;
+    bottom: 0;
 }
 
 .pie-de-pagina a {
-  color: #00bfff;
-  text-decoration: none;
-  margin-left: 0.5rem;
-  font-weight: bold;
-  transition: color 0.3s ease;
+    color: #00bfff;
+    text-decoration: none;
+    margin-left: 0.5rem;
+    font-weight: bold;
+    transition: color 0.3s ease;
 }
 
 .pie-de-pagina a:hover {
-  color: #ffffff;
+    color: #ffffff;
 }
