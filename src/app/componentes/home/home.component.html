@@ -1,6 +1,7 @@
 <div *ngIf="usersdata" class="datos-usuario-contenedor">
     <div class="logout-contenedor">        
         <h2 class="h2"> Datos del usuario</h2>
+        <button *ngIf= mostrarBotonHome() (click) = navigateToHome() class="log-out">Home</button>
         <button (click) = logout() class="log-out">Log out</button>
     </div>
     <table class="table ">
@@ -21,6 +22,9 @@
             </tr>
         </tbody>    
     </table>
+</div>
+<div *ngIf="!usersdata" class="login-container">
+    <button (click) = navigateTologin() class="log-out">Sign in/Sign up</button>
 </div>
 <div *ngIf="mostrarDatos()" class="home-container">
     <h1>🎮 Bienvenido a la Sala de Juegos</h1>
