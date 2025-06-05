@@ -1,6 +1,8 @@
 .contenedor {
   text-align: center;
-  margin-top: 40px;
+  margin-top: 30px;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  padding: 20px;
 
   h2 {
     font-size: 2rem;
@@ -52,6 +54,13 @@
   }
 }
 
+.puntuacion{
+  color: black;
+  font-weight: bold;
+  font-size: 18px;
+  margin-top: 15px;
+} 
+
 .btn-volver {
   margin-top: 20px;
   padding: 12px 24px;
@@ -75,4 +84,103 @@
 .btn-volver:active {
   transform: scale(0.98);
   box-shadow: 0 2px 8px rgba(255, 75, 43, 0.3);
+}
+.top3-container {
+  max-width: 400px;
+  margin: 1rem auto;
+  padding: 1rem;
+  background: #f0f8ff;
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.top3-title {
+  text-align: center;
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: #007acc;
+  margin-bottom: 1rem;
+  letter-spacing: 1px;
+}
+
+/* Contenedor para encabezados y lista */
+.top3-list-container {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+/* Encabezados de columnas */
+.top3-headers {
+  display: flex;
+  font-weight: 700;
+  color: #005f99;
+  border-bottom: 2px solid #007acc;
+  padding-bottom: 0.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.top3-header-rank {
+  width: 30px;
+  text-align: center;
+}
+
+.top3-header-name {
+  flex-grow: 1;
+  margin-left: 0.8rem;
+}
+
+.top3-header-score {
+  width: 50px;
+  text-align: right;
+}
+
+.top3-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.top3-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: white;
+  padding: 0.8rem 1rem;
+  border-radius: 8px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.07);
+  transition: transform 0.2s ease;
+}
+
+.top3-item:hover {
+  transform: scale(1.03);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.12);
+}
+
+.top3-rank {
+  font-weight: 700;
+  font-size: 1.2rem;
+  color: #005f99;
+  width: 30px;
+  text-align: center;
+}
+
+.top3-name {
+  flex-grow: 1;
+  margin-left: 0.8rem;
+  font-weight: 600;
+  font-size: 1.1rem;
+  color: #004466;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.top3-score {
+  font-weight: 700;
+  font-size: 1.2rem;
+  color: #007acc;
+  width: 50px;
+  text-align: right;
 }
