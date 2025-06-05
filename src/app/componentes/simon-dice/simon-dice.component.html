@@ -1,5 +1,26 @@
 <div class="contenedor">
   <h2>Simón Dice</h2>
+
+  <div class="top3-container">
+    <h3 class="top3-title">Top 3 Jugadores</h3>
+  
+    <div class="top3-list-container">
+      <div class="top3-headers">
+        <span class="top3-header-rank">Puesto</span>
+        <span class="top3-header-name">Nombre</span>
+        <span class="top3-header-score">Puntaje</span>
+      </div>
+    
+      <ul class="top3-list">
+        <li *ngFor="let item of top3; let i = index" class="top3-item">
+          <span class="top3-rank">{{ i + 1 }}</span>
+          <span class="top3-name">{{ item.nombre }}</span>
+          <span class="top3-score">{{ item.score }}</span>
+        </li>
+      </ul>
+    </div>
+  </div>
+
   <p>{{ mensaje }}</p>
 
   <div class="puntuacion">
