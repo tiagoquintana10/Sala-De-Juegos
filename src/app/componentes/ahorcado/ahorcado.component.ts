@@ -2,7 +2,7 @@
   import { createClient } from '@supabase/supabase-js';
   import { environment } from '../../../environments/environment.prod';
   import { Router } from '@angular/router';
-import { FetchBackend } from '@angular/common/http';
+  import { TopScore } from '../../models/top-score';
 
   const supabase = createClient(environment.apiUrl, environment.publicAnonKey);
 
@@ -24,8 +24,11 @@ import { FetchBackend } from '@angular/common/http';
     intentosRestantes: number = 6;
     juegoTerminado: boolean = false;
     juegoGanado: boolean = false;
+    
     score: number = 0;
     ultimoScore: number = 0;
+
+    top3: TopScore[] = [];
 
     abecedario: string[] = 'ABCDEFGHIJKLMNÑOPQRSTUVWXYZ'.split('');
     listaPalabras: string[] = ["ZAPATILLA", "LAGO", "GUITARRA", "RUEDA", "HIELO", "TEXTO", "ZEBRA", "ISLA", "NUBE", "ORGANO",
@@ -110,6 +113,7 @@ import { FetchBackend } from '@angular/common/http';
     }
 
     reiniciarJuego(): void {
+      this.obtenerTop3('ahorcado');
       const indice = Math.floor(Math.random() * this.listaPalabras.length);
       this.palabraOculta = this.listaPalabras[indice];
       this.letrasAdivinadas = [];
@@ -134,9 +138,25 @@ import { FetchBackend } from '@angular/common/http';
 
       })
     }
-
-
-  }
+  
+  obtenerTop3(juego: string) {
+    supabase
+      .from('score-juegos')
+      .select('nombre, score, fecha')
+      .eq('juego', juego)
+      .order('score', { ascending: false })
+      .order('fecha', { ascending: true })
+      .limit(3)
+      .then(({ data, error }) => {
+        if (error) {
+          console.error('Error al obtener top 3:', error.message);
+          this.top3 = [];
+          return;
+        }
+        this.top3 = data || [];
+      });
+  }  
+}
 
 
 
