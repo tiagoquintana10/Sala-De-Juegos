@@ -1,0 +1,55 @@
+<div class="encuesta-container">
+  <h2>Encuesta</h2>
+
+  <form [formGroup]="form" (ngSubmit)="enviarForm()">
+
+    <label>Nombre y Apellido:</label>
+    <input type="text" formControlName="nombreApellido" />
+    <div *ngIf="enviado && nombreApellido?.invalid" class="error">Campo requerido</div>
+
+    <label>Edad:</label>
+    <input type="number" formControlName="edad" />
+    <div *ngIf="enviado && edad?.invalid" class="error">Debe tener entre 18 y 99 años</div>
+
+    <label>Teléfono:</label>
+    <input type="text" formControlName="telefono" />
+    <div *ngIf="enviado && telefono?.invalid" class="error">Sólo números (máx. 10 dígitos)</div>
+
+    <hr>
+
+    <label>¿Como fue tu experiencia en cuanto al sitio web?</label>
+    <label><input type="radio" value="Excelente" formControlName="experiencia" /> Excelente</label>
+    <label><input type="radio" value="Muy bueno" formControlName="experiencia" /> Muy bueno</label>
+    <label><input type="radio" value="Normal" formControlName="experiencia" /> Normal</label>
+    <label><input type="radio" value="Malo" formControlName="experiencia" /> Malo</label>
+    <label><input type="radio" value="Muy malo" formControlName="experiencia" /> Muy malo</label>
+    <div *ngIf="enviado && experiencia?.invalid" class="error">Seleccioná una opción</div>
+
+    <hr>
+
+    <label>¿Que juego te gusto mas?</label>
+    <select formControlName="juegoGusto">
+      <option value="">Seleccione</option>
+      <option value="Ahoracdo">Ahorcado</option>
+      <option value="Mayor o menor">Mayor o Menor</option>
+      <option value="Preguntados">Preguntados</option>
+      <option value="Simon dice">Simon Dice</option>
+    </select>
+    <div *ngIf="enviado && juegoGusto?.invalid" class="error">Seleccioná una opción</div>
+
+    <hr>
+
+    <label>¿Qué otros juegos te gustaria que agreguemos a la pagina?</label>
+    <label><input type="checkbox" value="Ta-te-ti" (change)="CheckboxChange($event)" /> Ta-te-ti</label>
+    <label><input type="checkbox" value="Piedra, papel o tijera" (change)="CheckboxChange($event)" /> Piedra, papel o tijera</label>
+    <label><input type="checkbox" value="Memotest" (change)="CheckboxChange($event)" /> Memotest</label>
+    <label><input type="checkbox" value="Buscaminas" (change)="CheckboxChange($event)" /> Buscaminas</label>
+    <label><input type="checkbox" value="Snake" (change)="CheckboxChange($event)" /> Snake</label>   
+    <div *ngIf="enviado && juegosIncorporar?.invalid" class="error">Seleccioná al menos una</div>
+
+    <hr>
+
+    <button type="submit">Enviar Encuesta</button>
+
+  </form>
+</div>
