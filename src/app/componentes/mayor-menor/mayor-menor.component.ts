@@ -5,6 +5,7 @@ import { Router } from '@angular/router';
 import { CartasService } from '../../services/cartas.service';
 import { Cartas } from '../../models/cartas';
 import { Subscription } from 'rxjs';
+import { TopScore } from '../../models/top-score';
 
 const supabase = createClient(environment.apiUrl, environment.publicAnonKey);
 
@@ -24,13 +25,15 @@ export class MayorMenorComponent implements OnInit, OnDestroy{
 
   cartas: Cartas[] = [];
   cartaActual: Cartas | null = null;
+  cartaPerdedora: Cartas | null = null;
   cartasRestantes: number = 52;
   mensaje: string = '';
   juegoTerminado: boolean = false;
   subscripcion! : Subscription;
+  
   score: number = 0;
 
-
+  top3: TopScore[]= [];
 
   ngOnInit(): void {
     supabase.auth.getUser().then(({ data: { user }, error }) => {
@@ -48,13 +51,17 @@ export class MayorMenorComponent implements OnInit, OnDestroy{
   }
 
   ngOnDestroy(): void { 
-    this.subscripcion.unsubscribe();
+    if(this.subscripcion){
+      this.subscripcion.unsubscribe();
+    }
   }
 
   iniciarJuego() {
+    this.obtenerTop3('mayor-menor');
     this.subscripcion = this.cartasService.crearMazo().subscribe(res => {
       this.cartasService.setDeckId(res.deck_id);
       this.cartasRestantes = res.remaining;
+      this.cartaPerdedora = null;
       this.score = 0;
       this.juegoTerminado = false;
       this.mensaje = '';
@@ -88,15 +95,17 @@ export class MayorMenorComponent implements OnInit, OnDestroy{
       const valorSiguiente = this.getValorNumerico(cartaSiguiente);
 
       const acierto =
-        (eleccion === 'mayor' && valorSiguiente > valorActual) ||
-        (eleccion === 'menor' && valorSiguiente < valorActual);
+        (eleccion === 'mayor' && valorSiguiente >= valorActual) ||
+        (eleccion === 'menor' && valorSiguiente <= valorActual);
 
       if (acierto) {
         this.score++;
         this.mensaje = '¡Correcto! Sigue jugando.';
         this.cartaActual = cartaSiguiente;
+        this.cartaPerdedora = null;
       } else {
-        this.mensaje = `¡Incorrecto! La carta era ${cartaSiguiente.value} de ${cartaSiguiente.suit}. Puntaje final: ${this.score}`;
+        this.cartaPerdedora = cartaSiguiente;
+        this.mensaje = `Perdiste! La carta era: `;
         this.guardarScore('mayor-menor',this.score)
         this.juegoTerminado = true;
       }
@@ -142,5 +151,23 @@ export class MayorMenorComponent implements OnInit, OnDestroy{
       }
     })
   }
+
+  obtenerTop3(juego: string) {
+    supabase
+      .from('score-juegos')
+      .select('nombre, score, fecha')
+      .eq('juego', juego)
+      .order('score', { ascending: false })
+      .order('fecha', { ascending: true })
+      .limit(3)
+      .then(({ data, error }) => {
+        if (error) {
+          console.error('Error al obtener top 3:', error.message);
+          this.top3 = [];
+          return;
+        }
+        this.top3 = data || [];
+      });
+  }  
 
 }
