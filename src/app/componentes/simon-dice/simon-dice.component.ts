@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { createClient } from '@supabase/supabase-js';
 import { environment } from '../../../environments/environment.prod';
 import { Router } from '@angular/router';
+import { TopScore } from '../../models/top-score';
 
 const supabase = createClient(environment.apiUrl, environment.publicAnonKey);
 
@@ -26,6 +27,8 @@ export class SimonDiceComponent {
   score: number = 0;
   ultimoScore: number = 0;
 
+  top3: TopScore[]= [];
+
   constructor(private router: Router) {}
 
   ngOnInit(): void {
@@ -43,7 +46,8 @@ export class SimonDiceComponent {
     });
   }
 
-    iniciarJuego() {
+  iniciarJuego() {
+    this.obtenerTop3('simon-dice');
     this.secuencia = [];
     this.secuenciaJugador = [];
     this.nivel = 0;
@@ -93,6 +97,7 @@ export class SimonDiceComponent {
     if (color !== this.secuencia[index]) {
       this.mensaje = '¡Perdiste!';
       this.ultimoScore = this.score;
+      this.guardarScore('simon-dice',this.ultimoScore);
       this.mostrandoSecuencia = true;
       return;
     }
@@ -103,6 +108,39 @@ export class SimonDiceComponent {
       setTimeout(() => this.nuevaRonda(), 1000);
     }
   }
+  guardarScore(juego: string, score:number): void{
+    supabase.from('score-juegos').insert([{
+    user_id: this.usuarioId,
+    nombre: this.usuarioNombre,
+    juego,
+    fecha:new Date().toISOString(),
+    score  
+    }])
+    .then(({error}) => {
+      if(error){
+        console.error('Error al guardar score: ',error.message);
+      }
+    })
+  }
+
+  obtenerTop3(juego: string) {
+    supabase
+      .from('score-juegos')
+      .select('nombre, score, fecha')
+      .eq('juego', juego)
+      .order('score', { ascending: false })
+      .order('fecha', { ascending: true })
+      .limit(3)
+      .then(({ data, error }) => {
+        if (error) {
+          console.error('Error al obtener top 3:', error.message);
+          this.top3 = [];
+          return;
+        }
+        this.top3 = data || [];
+      });
+  }  
+  
 }
   
 
