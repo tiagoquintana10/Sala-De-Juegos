@@ -1,4 +1,3 @@
-<br>
 <div class="chat-container" *ngIf="currentUserId">
   <div class="messages">
     <div
@@ -9,7 +8,7 @@
       }"
     >
       <div class="meta">
-        <strong>{{ isMyMessage(msg) ? 'Yo' : msg.name }}</strong>
+        <strong>{{ isMyMessage(msg) ? '' : msg.name }}</strong>
         {{ formatDate(msg.created_at) }}
       </div>
       <div class="content">{{ msg.content }}</div>
