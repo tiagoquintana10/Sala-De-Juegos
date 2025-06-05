@@ -4,6 +4,9 @@ import { environment } from '../../../environments/environment.prod';
 import { createClient } from '@supabase/supabase-js';
 import { PersonajesRYMService } from '../../services/personajes-RYM.service';
 import { Personaje } from '../../models/personajes';
+import { TopScore } from '../../models/top-score';
+import { subscriptionLogsToBeFn } from 'rxjs/internal/testing/TestScheduler';
+import { Subscription } from 'rxjs';
 
 
 const supabase = createClient(environment.apiUrl, environment.publicAnonKey);
@@ -25,9 +28,12 @@ export class PreguntadosComponent implements OnInit {
   imagenUrl: string = '';
   respuestaSeleccionada: string = '';
   respuestaCorrecta: boolean | null = null;
+  subscripcion!: Subscription;
 
   score: number = 0;
   ultimoScore: number = 0;
+
+  top3: TopScore[]= [];
 
   constructor(private router: Router, private RYMService: PersonajesRYMService  ) {}
 
@@ -46,8 +52,15 @@ export class PreguntadosComponent implements OnInit {
     });
   }
 
+  ngOnDestroy(): void { 
+    if(this.subscripcion){
+      this.subscripcion.unsubscribe();
+    }
+  }
+
   generarPregunta(): void {
-    this.RYMService.getPersonajes().subscribe(data => {
+    this.obtenerTop3('preguntados');
+    this.subscripcion = this.RYMService.getPersonajes().subscribe(data => {
       const personajes = data.results;
       
       // Elegir personaje correcto al azar
@@ -96,5 +109,25 @@ export class PreguntadosComponent implements OnInit {
       }
     })
   }
-  
+
+  obtenerTop3(juego: string) {
+    supabase
+      .from('score-juegos')
+      .select('nombre, score, fecha')
+      .eq('juego', juego)
+      .order('score', { ascending: false })
+      .order('fecha', { ascending: true })
+      .limit(3)
+      .then(({ data, error }) => {
+        if (error) {
+          console.error('Error al obtener top 3:', error.message);
+          this.top3 = [];
+          return;
+        }
+        this.top3 = data || [];
+      });
+  }    
+
+
+
 }
