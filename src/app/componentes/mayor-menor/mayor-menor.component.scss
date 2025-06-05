@@ -1,44 +1,184 @@
 .juego-mayor-menor {
   text-align: center;
-
-  .carta-imagen {
+  margin-top: 30px;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  padding: 20px;
+}
+.carta-imagen {
     width: 150px;
     height: auto;
     margin-bottom: 1rem;
+    transition: transform 0.3s ease;
+}
+
+.carta-imagen:hover {
+    transform: scale(1.05);
+}
+
+.botones {
+    margin-top: 1rem;
+
+    button {
+        margin: 0 10px;
+        padding: 0.7rem 2rem;
+        font-size: 1.2rem;
+        font-weight: bold;
+        color: #fff;
+        background: linear-gradient(135deg, #ff416c, #ff4b2b); // degradado rojo-rosado
+        border: none;
+        border-radius: 8px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        box-shadow: 0 4px 10px rgba(255, 65, 108, 0.3);
+    }
+
+    button:hover {
+        background: linear-gradient(135deg, #ff4b2b, #ff416c);
+        transform: scale(1.05);
+        box-shadow: 0 6px 16px rgba(255, 65, 108, 0.4);
+    }
+
+    button:active {
+        transform: scale(0.97);
+        box-shadow: 0 2px 6px rgba(255, 65, 108, 0.2);
+    }
   }
 
-  .botones button {
-    margin: 0 10px;
-    padding: 0.5rem 1.5rem;
-    font-size: 1.2rem;
-  }
-
-  .mensaje {
-    margin: 1rem 0;
+.mensaje {
+    margin: 1.5rem 0;
     font-weight: bold;
+    font-size: 1.1rem;
+    color: #333;
+}
+.carta-perdedora {
+  margin-top: 1rem;
+  img {
+    width: 150px;
+    height: auto;
+    border: 2px solid red;
+    border-radius: 8px;
   }
 }
 .btn-volver {
-  margin-top: 20px;
-  padding: 12px 24px;
-  font-size: 16px;
-  font-weight: bold;
-  color: #ffffff;
-  background: linear-gradient(135deg, #00c6ff, #0072ff);
-  border: none;
-  border-radius: 8px;
-  cursor: pointer;
-  box-shadow: 0 4px 10px rgba(255, 75, 43, 0.4);
-  transition: all 0.3s ease;
+    margin-top: 20px;
+    padding: 12px 24px;
+    font-size: 16px;
+    font-weight: bold;
+    color: #ffffff;
+    background: linear-gradient(135deg, #00c6ff, #0072ff);
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    box-shadow: 0 4px 10px rgba(255, 75, 43, 0.4);
+    transition: all 0.3s ease;
 }
 
 .btn-volver:hover {
-  background: linear-gradient(135deg, #ff4b2b, #ff416c);
-  box-shadow: 0 6px 16px rgba(255, 75, 43, 0.5);
-  transform: scale(1.05);
+    background: linear-gradient(135deg, #ff4b2b, #ff416c);
+    box-shadow: 0 6px 16px rgba(255, 75, 43, 0.5);
+    transform: scale(1.05);
 }
 
 .btn-volver:active {
-  transform: scale(0.98);
-  box-shadow: 0 2px 8px rgba(255, 75, 43, 0.3);
+    transform: scale(0.98);
+    box-shadow: 0 2px 8px rgba(255, 75, 43, 0.3);
+}
+.top3-container {
+  max-width: 400px;
+  margin: 1rem auto;
+  padding: 1rem;
+  background: #f0f8ff;
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.top3-title {
+  text-align: center;
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: #007acc;
+  margin-bottom: 1rem;
+  letter-spacing: 1px;
+}
+
+/* Contenedor para encabezados y lista */
+.top3-list-container {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+/* Encabezados de columnas */
+.top3-headers {
+  display: flex;
+  font-weight: 700;
+  color: #005f99;
+  border-bottom: 2px solid #007acc;
+  padding-bottom: 0.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.top3-header-rank {
+  width: 30px;
+  text-align: center;
+}
+
+.top3-header-name {
+  flex-grow: 1;
+  margin-left: 0.8rem;
+}
+
+.top3-header-score {
+  width: 50px;
+  text-align: right;
+}
+
+.top3-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.top3-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: white;
+  padding: 0.8rem 1rem;
+  border-radius: 8px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.07);
+  transition: transform 0.2s ease;
+}
+
+.top3-item:hover {
+  transform: scale(1.03);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.12);
+}
+
+.top3-rank {
+  font-weight: 700;
+  font-size: 1.2rem;
+  color: #005f99;
+  width: 30px;
+  text-align: center;
+}
+
+.top3-name {
+  flex-grow: 1;
+  margin-left: 0.8rem;
+  font-weight: 600;
+  font-size: 1.1rem;
+  color: #004466;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.top3-score {
+  font-weight: 700;
+  font-size: 1.2rem;
+  color: #007acc;
+  width: 50px;
+  text-align: right;
 }
