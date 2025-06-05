@@ -1,8 +1,22 @@
 <div class="login-container">
     <h3>Login</h3>
-    <input type="text" placeholder="Mail" [(ngModel)]="mail" 
-            [ngClass]="{'invalid-input': submitted && mail.length == 0}"
-            class="login-input" />
+
+    <input
+        type="text"
+        placeholder="Mail"
+        [(ngModel)]="mail"
+        [ngClass]="{'invalid-input': submitted && mail.length == 0}"
+        list="emails-list"
+        class="login-input"
+    />
+
+    <datalist id="emails-list">
+        <option
+        *ngFor="let email of registeredEmails"
+        [value]="email"
+        (click)="selectEmail(email)"
+        ></option>
+    </datalist>
 
     <input type="password" placeholder="Password" [(ngModel)]="password"
             [ngClass]="{'invalid-input': submitted && password.length == 0 || incorrect}"
@@ -21,4 +35,5 @@
              Register
         </button>
     </div>
+
 </div>
