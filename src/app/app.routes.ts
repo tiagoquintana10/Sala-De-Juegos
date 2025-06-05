@@ -6,6 +6,7 @@ import { Component } from '@angular/core';
 import { RegisterComponent } from './componentes/register/register.component';
 import { QuienSoyComponent } from './componentes/quien-soy/quien-soy.component';
 import { ChatComponent } from './componentes/chat/chat.component';
+import { EncuestaComponent } from './componentes/encuesta/encuesta.component';
 
 export const routes: Routes = [
     {
@@ -33,6 +34,10 @@ export const routes: Routes = [
             {
                 path: 'quien-soy',
                 component: QuienSoyComponent,
+            },
+                        {
+                path: 'encuesta',
+                component: EncuestaComponent,
             },
     ],
     },
