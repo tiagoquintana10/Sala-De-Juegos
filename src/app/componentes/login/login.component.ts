@@ -20,12 +20,16 @@ export class LoginComponent {
   password: string = "";
 
   constructor(private router : Router){
-
+    this.loadRegisteredEmails();
   } 
   
   submitted: boolean = false;
   incorrect: boolean = false;
   errorMsg : string = '';
+
+  registeredEmails: string[] = [];
+  filteredEmails: string[] = [];
+  showSuggestions = false;
 
   login(){
     this.submitted = true;
@@ -50,6 +54,26 @@ export class LoginComponent {
       }
     });
 
+  }
+
+  loadRegisteredEmails() {
+    supabase
+      .from('users-data')
+      .select('authId(id), authId:users(id,email)') 
+      .then(({ data, error }) => {
+        if (error) {
+          console.error('Error cargando emails:', error.message);
+          return;
+        }
+        this.registeredEmails = (data || [])
+          .map((item: any) => item.authId?.email)
+          .filter((email: string) => !!email);
+      });
+  }
+
+  selectEmail(selectedEmail: string) {
+    this.mail = selectedEmail;
+    this.password = '';
   }
 }
 
